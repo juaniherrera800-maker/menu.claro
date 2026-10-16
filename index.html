@@ -1,0 +1,1161 @@
+<!doctype html>
+<html lang="es" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
+    <title>Maison Éthique - Café & Boulangerie</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Plus+Jakarta+Sans:wght@200;300;400;500;600&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- FontAwesome Icons -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              alabaster: "#FBF9F5",
+              linen: "#F4EFE6",
+              oatmeal: "#F0EBD9",
+              sandstone: "#E2D8C3",
+              sage: {
+                300: "#A3B19B",
+                500: "#78866B",
+                700: "#525E49",
+              },
+              charcoal: "#1C1917",
+              clay: "#A86544",
+            },
+            fontFamily: {
+              serif: ["Cormorant Garamond", "serif"],
+              sans: ["Plus Jakarta Sans", "sans-serif"],
+            },
+            keyframes: {
+              slideUp: {
+                "0%": { transform: "translateY(100%)" },
+                "100%": { transform: "translateY(0)" },
+              },
+              fadeIn: { "0%": { opacity: "0" }, "100%": { opacity: "1" } },
+            },
+            animation: {
+              slideUp: "slideUp 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards",
+              fadeIn: "fadeIn 0.25s ease-out forwards",
+            },
+          },
+        },
+      };
+    </script>
+
+    <style>
+      body {
+        background-color: #fbf9f5;
+        color: #1c1917;
+        font-family: "Plus Jakarta Sans", sans-serif;
+        -webkit-font-smoothing: antialiased;
+      }
+      .no-scrollbar::-webkit-scrollbar {
+        display: none;
+      }
+      .no-scrollbar {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+      }
+
+      .glass-header {
+        background: rgba(251, 249, 245, 0.88);
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+      }
+      .glass-card {
+        background: rgba(255, 255, 255, 0.65);
+        backdrop-filter: blur(12px);
+        border: 1px solid rgba(226, 216, 195, 0.45);
+      }
+      .badge-tag {
+        font-size: 9px;
+        letter-spacing: 0.05em;
+        text-transform: uppercase;
+        padding: 2px 8px;
+        border-radius: 9999px;
+      }
+    </style>
+  </head>
+  <body
+    class="min-h-screen pb-32 relative selection:bg-sage-500/20 selection:text-charcoal"
+  >
+    <!-- TOP HEADER / BRANDING -->
+    <header class="pt-8 pb-4 px-6 max-w-lg mx-auto text-center relative z-10">
+      <div
+        class="flex justify-between items-center text-xs text-stone-500 border-b border-sandstone/40 pb-3 mb-6"
+      >
+        <div class="flex items-center gap-2">
+          <span class="w-2 h-2 rounded-full bg-sage-500 animate-pulse"></span>
+          <span
+            class="uppercase text-[10px] tracking-widest font-medium"
+            data-i18n="tableInfo"
+            >Mesa 08 • Maison</span
+          >
+        </div>
+
+        <div class="flex items-center gap-2">
+          <!-- Wi-Fi Modal Trigger -->
+          <button
+            onclick="openWifiModal()"
+            class="w-7 h-7 rounded-full bg-linen border border-sandstone/60 flex items-center justify-center text-charcoal text-xs hover:border-sage-500 transition"
+          >
+            <i class="fa-solid fa-wifi"></i>
+          </button>
+          <!-- Language Switcher -->
+          <button
+            id="lang-btn"
+            onclick="toggleLanguage()"
+            class="px-2.5 py-0.5 rounded-full bg-linen border border-sandstone/60 text-[10px] uppercase font-medium hover:border-sage-500 transition"
+          >
+            ES / <span class="text-sage-700 font-semibold">EN</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="inline-block relative">
+        <span
+          class="block text-[10px] tracking-[0.35em] uppercase text-sage-700 font-medium mb-1"
+          data-i18n="subtitle"
+          >Boutique & Artisan Atelier</span
+        >
+        <h1
+          class="font-serif text-3xl sm:text-4xl font-light tracking-wide text-charcoal uppercase"
+        >
+          Maison Éthique
+        </h1>
+        <span
+          class="block text-[11px] font-serif italic text-stone-500 mt-1"
+          data-i18n="tagline"
+          >Café de Especialidad & Boulangerie Orgánica</span
+        >
+      </div>
+    </header>
+
+    <!-- SEARCH & DIETARY FILTERS -->
+    <section class="max-w-lg mx-auto px-6 mb-6 space-y-3">
+      <!-- Search Bar -->
+      <div class="relative">
+        <i
+          class="fa-solid fa-magnifying-glass absolute left-3.5 top-1/2 -translate-y-1/2 text-stone-400 text-xs"
+        ></i>
+        <input
+          type="text"
+          id="search-input"
+          oninput="handleSearch()"
+          placeholder="Buscar café, croissant, matcha..."
+          class="w-full bg-linen/70 border border-sandstone/60 rounded-xl pl-9 pr-8 py-2.5 text-xs text-charcoal placeholder-stone-400 focus:outline-none focus:border-sage-500 transition shadow-sm"
+        />
+        <button
+          id="clear-search"
+          onclick="clearSearch()"
+          class="hidden absolute right-3 top-1/2 -translate-y-1/2 text-stone-400 hover:text-charcoal text-xs"
+        >
+          <i class="fa-solid fa-circle-xmark"></i>
+        </button>
+      </div>
+
+      <!-- Dietary Chips -->
+      <div
+        class="flex items-center gap-2 overflow-x-auto no-scrollbar text-[11px]"
+      >
+        <button
+          onclick="toggleDietFilter('all')"
+          id="diet-all"
+          class="diet-btn active bg-charcoal text-alabaster px-3 py-1 rounded-full whitespace-nowrap transition"
+        >
+          <span data-i18n="dietAll">Todos</span>
+        </button>
+        <button
+          onclick="toggleDietFilter('gf')"
+          id="diet-gf"
+          class="diet-btn bg-linen text-stone-700 border border-sandstone/60 px-3 py-1 rounded-full whitespace-nowrap transition"
+        >
+          🌾 Sin Gluten (GF)
+        </button>
+        <button
+          onclick="toggleDietFilter('vegan')"
+          id="diet-vegan"
+          class="diet-btn bg-linen text-stone-700 border border-sandstone/60 px-3 py-1 rounded-full whitespace-nowrap transition"
+        >
+          🌱 Vegano (V)
+        </button>
+        <button
+          onclick="toggleDietFilter('sourdough')"
+          id="diet-sourdough"
+          class="diet-btn bg-linen text-stone-700 border border-sandstone/60 px-3 py-1 rounded-full whitespace-nowrap transition"
+        >
+          🥖 Masa Madre
+        </button>
+      </div>
+    </section>
+
+    <!-- COFFEE & PASTRY MATCHMAKER (Interactive Assistant) -->
+    <section class="max-w-lg mx-auto px-6 mb-6">
+      <div
+        class="glass-card rounded-2xl p-4 border border-sage-500/30 relative overflow-hidden"
+      >
+        <div class="flex items-center gap-3 mb-2">
+          <div
+            class="w-8 h-8 rounded-full bg-sage-500/10 flex items-center justify-center text-sage-700 text-xs flex-shrink-0"
+          >
+            <i class="fa-solid fa-wand-magic-sparkles"></i>
+          </div>
+          <div>
+            <h3
+              class="font-serif text-sm font-semibold text-charcoal"
+              data-i18n="matchmakerTitle"
+            >
+              Coffee Matchmaker
+            </h3>
+            <p
+              class="text-[10px] text-stone-500"
+              data-i18n="matchmakerSubtitle"
+            >
+              ¿Qué experiencia buscás hoy?
+            </p>
+          </div>
+        </div>
+
+        <div
+          class="grid grid-cols-2 sm:grid-cols-4 gap-2 mt-3"
+          id="matchmaker-options"
+        >
+          <button
+            onclick="runMatchmaker('sweet')"
+            class="bg-linen/90 hover:bg-oatmeal p-2 rounded-xl text-left border border-sandstone/40 transition text-stone-800"
+          >
+            <span class="block text-xs font-medium">🍩 Dulce</span>
+            <span class="text-[9px] text-stone-500">Reconfortante</span>
+          </button>
+          <button
+            onclick="runMatchmaker('citrus')"
+            class="bg-linen/90 hover:bg-oatmeal p-2 rounded-xl text-left border border-sandstone/40 transition text-stone-800"
+          >
+            <span class="block text-xs font-medium">🍋 Cítrico</span>
+            <span class="text-[9px] text-stone-500">Refrescante</span>
+          </button>
+          <button
+            onclick="runMatchmaker('energy')"
+            class="bg-linen/90 hover:bg-oatmeal p-2 rounded-xl text-left border border-sandstone/40 transition text-stone-800"
+          >
+            <span class="block text-xs font-medium">⚡ Intenso</span>
+            <span class="text-[9px] text-stone-500">Energía pura</span>
+          </button>
+          <button
+            onclick="runMatchmaker('savory')"
+            class="bg-linen/90 hover:bg-oatmeal p-2 rounded-xl text-left border border-sandstone/40 transition text-stone-800"
+          >
+            <span class="block text-xs font-medium">🥑 Salado</span>
+            <span class="text-[9px] text-stone-500">Brunch ligero</span>
+          </button>
+        </div>
+
+        <!-- Match Result Box -->
+        <div
+          id="matchmaker-result"
+          class="hidden mt-3 pt-3 border-t border-sandstone/50 animate-fadeIn"
+        >
+          <div class="flex items-center justify-between">
+            <div>
+              <p
+                class="text-[9px] uppercase tracking-wider text-sage-700 font-semibold"
+                data-i18n="pairRecommendation"
+              >
+                Maridaje Recomendado
+              </p>
+              <p
+                id="match-pair-text"
+                class="text-xs font-serif font-medium text-charcoal mt-0.5"
+              ></p>
+            </div>
+            <button
+              id="match-add-btn"
+              onclick=""
+              class="bg-sage-700 hover:bg-sage-500 text-alabaster text-[10px] uppercase font-medium px-3 py-1.5 rounded-xl shadow-sm transition"
+            >
+              + <span data-i18n="addPair">Agregar Combo</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- STICKY CATEGORY NAVIGATION TABS -->
+    <nav
+      class="sticky top-0 z-30 glass-header border-b border-sandstone/60 py-2.5 shadow-sm"
+    >
+      <div
+        id="categories-container"
+        class="flex items-center gap-2 overflow-x-auto no-scrollbar max-w-lg mx-auto px-6 text-xs"
+      >
+        <!-- Injected via JS -->
+      </div>
+    </nav>
+
+    <!-- MENU PRODUCTS DISHES -->
+    <main class="max-w-lg mx-auto px-6 pt-6 space-y-8">
+      <div id="products-container" class="space-y-4">
+        <!-- Injected via JS -->
+      </div>
+    </main>
+
+    <!-- FLOATING BARISTA & ORDER CONTROLLER -->
+    <div class="fixed bottom-6 left-0 right-0 px-6 z-40 pointer-events-none">
+      <div class="max-w-lg mx-auto flex gap-3 pointer-events-auto">
+        <!-- Call Barista Button -->
+        <button
+          onclick="callBarista()"
+          class="bg-alabaster hover:bg-white text-charcoal border border-sandstone p-3.5 rounded-2xl shadow-lg flex items-center justify-center transition active:scale-95"
+          title="Llamar al barista"
+        >
+          <i class="fa-solid fa-bell text-sage-700 text-sm"></i>
+        </button>
+
+        <!-- View Selection Drawer Trigger -->
+        <button
+          onclick="openDrawer()"
+          class="flex-1 bg-charcoal hover:bg-black text-alabaster font-light py-3.5 px-5 rounded-2xl shadow-xl flex items-center justify-between transition active:scale-98 text-xs tracking-wider uppercase border border-sandstone/30"
+        >
+          <div class="flex items-center gap-2">
+            <span
+              id="cart-count"
+              class="w-5 h-5 rounded-full bg-sage-500 text-alabaster text-[10px] font-bold flex items-center justify-center"
+              >0</span
+            >
+            <span data-i18n="viewOrder">Ver Pedido</span>
+          </div>
+          <span
+            id="cart-total"
+            class="font-serif text-sm font-light text-oatmeal"
+            >$0</span
+          >
+        </button>
+      </div>
+    </div>
+
+    <!-- PRODUCT DETAIL / CUSTOMIZATION MODAL -->
+    <div
+      id="product-modal"
+      class="fixed inset-0 z-50 bg-charcoal/50 backdrop-blur-sm hidden flex items-end sm:items-center justify-center p-0 sm:p-4 transition-opacity"
+    >
+      <div
+        class="bg-alabaster w-full max-w-lg rounded-t-3xl sm:rounded-3xl p-6 shadow-2xl border border-sandstone max-h-[90vh] overflow-y-auto no-scrollbar relative animate-slideUp"
+      >
+        <button
+          onclick="closeModal()"
+          class="absolute top-5 right-5 w-8 h-8 rounded-full bg-linen flex items-center justify-center text-stone-600 hover:text-charcoal transition"
+        >
+          <i class="fa-solid fa-xmark text-sm"></i>
+        </button>
+
+        <div id="modal-content">
+          <!-- Injected via JS -->
+        </div>
+      </div>
+    </div>
+
+    <!-- ORDER DRAWER SUMMARY -->
+    <div
+      id="order-drawer"
+      class="fixed inset-0 z-50 bg-charcoal/60 backdrop-blur-sm hidden flex justify-end"
+    >
+      <div
+        class="bg-alabaster w-full max-w-md h-full p-6 shadow-2xl flex flex-col justify-between overflow-y-auto animate-slideUp"
+      >
+        <div>
+          <div
+            class="flex justify-between items-center border-b border-sandstone pb-4 mb-4"
+          >
+            <div>
+              <h2
+                class="font-serif text-2xl text-charcoal font-normal"
+                data-i18n="drawerTitle"
+              >
+                Su Selección
+              </h2>
+              <span
+                class="text-[10px] text-stone-500 uppercase tracking-widest"
+                data-i18n="drawerSubtitle"
+                >Maison Éthique • Servicio de Mesa</span
+              >
+            </div>
+            <button
+              onclick="closeDrawer()"
+              class="w-8 h-8 rounded-full bg-linen flex items-center justify-center text-stone-600"
+            >
+              <i class="fa-solid fa-xmark text-sm"></i>
+            </button>
+          </div>
+
+          <!-- Wait Time Estimate -->
+          <div
+            class="bg-linen/80 rounded-xl p-3 border border-sandstone/60 mb-4 flex items-center gap-3"
+          >
+            <i class="fa-solid fa-clock text-sage-700 text-sm"></i>
+            <p class="text-xs text-stone-700">
+              <span data-i18n="waitTimeLabel"
+                >Tiempo estimativo de preparación:</span
+              >
+              <strong class="font-medium text-charcoal">8 - 12 min</strong>
+            </p>
+          </div>
+
+          <div id="drawer-items" class="space-y-3 mb-6">
+            <!-- Dynamically populated -->
+          </div>
+        </div>
+
+        <div class="border-t border-sandstone pt-4 space-y-3">
+          <div class="flex justify-between text-xs text-stone-600">
+            <span data-i18n="subtotal">Subtotal</span>
+            <span id="drawer-subtotal" class="font-serif text-sm">$0</span>
+          </div>
+          <div class="flex justify-between text-xs text-stone-600">
+            <span data-i18n="serviceCharge">Servicio de Mesa (5%)</span>
+            <span id="drawer-service" class="font-serif text-sm">$0</span>
+          </div>
+          <div
+            class="flex justify-between text-base font-serif font-semibold text-charcoal border-t border-sandstone/60 pt-2"
+          >
+            <span data-i18n="total">Total</span>
+            <span id="drawer-total" class="text-sage-700">$0</span>
+          </div>
+
+          <!-- Actions -->
+          <div class="space-y-2 pt-2">
+            <button
+              onclick="sendWhatsAppOrder()"
+              class="w-full bg-sage-700 hover:bg-sage-500 text-alabaster py-3.5 rounded-2xl text-xs uppercase tracking-widest transition shadow-lg flex items-center justify-center gap-2"
+            >
+              <i class="fa-brands fa-whatsapp text-sm"></i>
+              <span data-i18n="sendWhatsApp">Enviar Pedido por WhatsApp</span>
+            </button>
+
+            <button
+              onclick="confirmOrderAtTable()"
+              class="w-full bg-charcoal hover:bg-black text-alabaster py-3 rounded-2xl text-xs uppercase tracking-widest transition flex items-center justify-center gap-2"
+            >
+              <i class="fa-solid fa-check text-sage-300"></i>
+              <span data-i18n="confirmTable">Confirmar al Barista</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- WI-FI & VENUE MODAL -->
+    <div
+      id="wifi-modal"
+      class="fixed inset-0 z-50 bg-charcoal/50 backdrop-blur-sm hidden flex items-center justify-center p-4"
+    >
+      <div
+        class="bg-alabaster w-full max-w-xs rounded-3xl p-6 shadow-2xl border border-sandstone relative animate-fadeIn text-center"
+      >
+        <button
+          onclick="closeWifiModal()"
+          class="absolute top-4 right-4 text-stone-400 hover:text-charcoal"
+        >
+          <i class="fa-solid fa-xmark text-sm"></i>
+        </button>
+
+        <div
+          class="w-12 h-12 bg-sage-500/10 rounded-full flex items-center justify-center text-sage-700 mx-auto mb-3"
+        >
+          <i class="fa-solid fa-wifi text-lg"></i>
+        </div>
+
+        <h3 class="font-serif text-xl text-charcoal mb-1">Wi-Fi Maison</h3>
+        <p class="text-xs text-stone-500 mb-4" data-i18n="wifiDesc">
+          Conectate a nuestra red exclusiva para clientes.
+        </p>
+
+        <div
+          class="bg-linen p-3 rounded-xl border border-sandstone/60 space-y-1 mb-4 text-left"
+        >
+          <div class="text-[10px] text-stone-500 uppercase tracking-wider">
+            Red: <strong class="text-charcoal">Maison_Guest</strong>
+          </div>
+          <div
+            class="text-[10px] text-stone-500 uppercase tracking-wider flex justify-between items-center"
+          >
+            <span
+              >Clave:
+              <strong class="text-charcoal font-mono"
+                >cafeorganico2026</strong
+              ></span
+            >
+            <button
+              onclick="copyWifiPassword()"
+              class="text-sage-700 hover:underline text-[10px] font-medium"
+            >
+              Copiar
+            </button>
+          </div>
+        </div>
+
+        <p class="text-[10px] text-stone-400 italic" data-i18n="venueHours">
+          Abierto de Martes a Domingo de 8:00 a 20:00 hs
+        </p>
+      </div>
+    </div>
+
+    <!-- NOTIFICATION TOAST -->
+    <div
+      id="toast"
+      class="fixed top-6 right-6 z-50 bg-charcoal text-alabaster px-4 py-3 rounded-2xl shadow-xl border border-sandstone/30 text-xs flex items-center gap-3 transition transform translate-y-[-100px] opacity-0 pointer-events-none"
+    >
+      <i class="fa-solid fa-circle-check text-sage-300 text-base"></i>
+      <span id="toast-message">Notificación</span>
+    </div>
+
+    <!-- JAVASCRIPT APP LOGIC -->
+    <script>
+      // --- STATE MANAGEMENT ---
+      let currentLang = "ES";
+      let currentCategory = "all";
+      let currentDietFilter = "all";
+      let searchQuery = "";
+      let cart = {}; // { id: { qty, options: { milk, sweetener } } }
+
+      const translations = {
+        ES: {
+          subtitle: "Boutique & Artisan Atelier",
+          tagline: "Café de Especialidad & Boulangerie Orgánica",
+          tableInfo: "Mesa 08 • Maison",
+          dietAll: "Todos",
+          matchmakerTitle: "Coffee Matchmaker",
+          matchmakerSubtitle: "¿Qué experiencia buscás hoy?",
+          pairRecommendation: "Maridaje Recomendado",
+          addPair: "Agregar Combo",
+          viewOrder: "Ver Pedido",
+          drawerTitle: "Su Selección",
+          drawerSubtitle: "Maison Éthique • Servicio de Mesa",
+          waitTimeLabel: "Tiempo estimativo de preparación:",
+          subtotal: "Subtotal",
+          serviceCharge: "Servicio de Mesa (5%)",
+          total: "Total",
+          sendWhatsApp: "Enviar Pedido por WhatsApp",
+          confirmTable: "Confirmar al Barista",
+          wifiDesc: "Conectate a nuestra red exclusiva para clientes.",
+          venueHours: "Abierto de Martes a Domingo de 8:00 a 20:00 hs",
+          originLabel: "Origen & Notas de Cata:",
+          allergensLabel: "Alergenos:",
+          milkOptionLabel: "Selección de Leche:",
+          addSelection: "Agregar al Pedido",
+          baristaCalled: "El barista ha sido notificado y se acerca a su mesa.",
+          orderConfirmed: "Su pedido ha sido enviado al barista en barra.",
+          copiedWifi: "Contraseña copiada al portapapeles",
+        },
+        EN: {
+          subtitle: "Boutique & Artisan Atelier",
+          tagline: "Specialty Coffee & Organic Boulangerie",
+          tableInfo: "Table 08 • Maison",
+          dietAll: "All",
+          matchmakerTitle: "Coffee Matchmaker",
+          matchmakerSubtitle: "What mood are you craving today?",
+          pairRecommendation: "Recommended Pairing",
+          addPair: "Add Combo",
+          viewOrder: "View Order",
+          drawerTitle: "Your Selection",
+          drawerSubtitle: "Maison Éthique • Table Service",
+          waitTimeLabel: "Estimated prep time:",
+          subtotal: "Subtotal",
+          serviceCharge: "Table Service (5%)",
+          total: "Total",
+          sendWhatsApp: "Send Order via WhatsApp",
+          confirmTable: "Confirm with Barista",
+          wifiDesc: "Connect to our guest-exclusive high-speed network.",
+          venueHours: "Open Tuesday to Sunday from 8:00 AM to 8:00 PM",
+          originLabel: "Origin & Tasting Notes:",
+          allergensLabel: "Allergens:",
+          milkOptionLabel: "Milk Selection:",
+          addSelection: "Add to Order",
+          baristaCalled: "The barista has been notified to assist your table.",
+          orderConfirmed: "Your order has been transmitted to the bar.",
+          copiedWifi: "Password copied to clipboard",
+        },
+      };
+
+      const categories = [
+        { id: "all", name: { ES: "Todos", EN: "All" } },
+        {
+          id: "espresso",
+          name: { ES: "Espresso & Especiales", EN: "Espresso & Specialty" },
+        },
+        {
+          id: "filter",
+          name: { ES: "Filtrados & Cold Brew", EN: "Pour Over & Cold Brew" },
+        },
+        {
+          id: "bakery",
+          name: { ES: "Bakery & Viennoiserie", EN: "Bakery & Pastry" },
+        },
+        {
+          id: "brunch",
+          name: { ES: "Brunch & Tartines", EN: "Brunch & Toast" },
+        },
+        {
+          id: "teas",
+          name: { ES: "Tés & Elixires", EN: "Teas & Botanical Elixirs" },
+        },
+      ];
+
+      const products = [
+        {
+          id: "p1",
+          category: "espresso",
+          price: 4200,
+          tags: [],
+          image:
+            "https://images.unsplash.com/photo-1577968897966-3d4325b36b61?auto=format&fit=crop&w=600&q=80",
+          name: { ES: "Cardamom Infused Latte", EN: "Cardamom Infused Latte" },
+          description: {
+            ES: "Doble shot de espresso con infusión natural de vainas de cardamomo orgánico y leche texturizada.",
+            EN: "Double espresso shot infused with organic cardamom pods and silky steamed milk.",
+          },
+          origin: {
+            ES: "Guatemala Huehuetenango (Notas a Cacao & Cítricos)",
+            EN: "Guatemala Huehuetenango (Cocoa & Citrus notes)",
+          },
+          allergens: ["Lácteos"],
+          hasMilkOptions: true,
+        },
+        {
+          id: "p2",
+          category: "filter",
+          price: 5100,
+          tags: ["vegan"],
+          image:
+            "https://images.unsplash.com/photo-1517701604599-bb29b565090c?auto=format&fit=crop&w=600&q=80",
+          name: { ES: "Geisha Pour Over (V60)", EN: "Geisha Pour Over (V60)" },
+          description: {
+            ES: "Filtrado de alta precisión en V60. Perfil de taza extremadamente limpio, floral y complejo.",
+            EN: "Precision V60 pour over. Extremely clean, floral, and complex cup profile.",
+          },
+          origin: {
+            ES: "Colombia Huila Geisha (Notas a Jazmín, Bergamota & Miel)",
+            EN: "Colombia Huila Geisha (Jasmine, Bergamot & Honey notes)",
+          },
+          allergens: [],
+          hasMilkOptions: false,
+        },
+        {
+          id: "p3",
+          category: "bakery",
+          price: 3400,
+          tags: ["sourdough"],
+          image:
+            "https://images.unsplash.com/photo-1555507036-ab1f4038808a?auto=format&fit=crop&w=600&q=80",
+          name: {
+            ES: "Croissant 100% Manteca Santafesina",
+            EN: "100% Pure Butter Croissant",
+          },
+          description: {
+            ES: "Laminado artesanal con 72 horas de fermentación lenta. Crocante exterior y alvéolos perfectos.",
+            EN: "Artisanal laminated pastry with 72-hour slow fermentation. Golden, flaky, and buttery.",
+          },
+          origin: {
+            ES: "Harina Orgánica & Manteca de Campo",
+            EN: "Organic Flour & Farm Butter",
+          },
+          allergens: ["Gluten", "Lácteos"],
+          hasMilkOptions: false,
+        },
+        {
+          id: "p4",
+          category: "bakery",
+          price: 4800,
+          tags: [],
+          image:
+            "https://images.unsplash.com/photo-1623334044303-241021148842?auto=format&fit=crop&w=600&q=80",
+          name: {
+            ES: "Croffin de Pistacho Siciliano",
+            EN: "Sicilian Pistachio Cruffin",
+          },
+          description: {
+            ES: "Híbrido de croissant y muffin rellenado con crema pastelera de pistachos sicilianos tostados.",
+            EN: "Croissant-muffin hybrid filled with rich Sicilian roasted pistachio pastry cream.",
+          },
+          origin: {
+            ES: "Pistachos de Bronte, Italia",
+            EN: "Bronte Pistachios, Italy",
+          },
+          allergens: ["Gluten", "Lácteos", "Frutos Secos"],
+          hasMilkOptions: false,
+        },
+        {
+          id: "p5",
+          category: "brunch",
+          price: 8900,
+          tags: ["sourdough", "vegan"],
+          image:
+            "https://images.unsplash.com/photo-1525351484163-7529414344d8?auto=format&fit=crop&w=600&q=80",
+          name: {
+            ES: "Avocado Tartine en Masa Madre",
+            EN: "Sourdough Avocado Tartine",
+          },
+          description: {
+            ES: "Hass maduro, aceite de oliva virgen extra de primera prensada, semillas activadas y flor de sal.",
+            EN: "Ripe Hass avocado, cold-pressed EVOO, activated seeds, and Maldon sea salt flake.",
+          },
+          origin: {
+            ES: "Pan de Masa Madre de 48hs de Fermentación",
+            EN: "48-Hour Fermented Sourdough Bread",
+          },
+          allergens: ["Gluten", "Sésamo"],
+          hasMilkOptions: false,
+        },
+        {
+          id: "p6",
+          category: "teas",
+          price: 4600,
+          tags: ["vegan", "gf"],
+          image:
+            "https://images.unsplash.com/photo-1536256263959-770b48d82b0a?auto=format&fit=crop&w=600&q=80",
+          name: {
+            ES: "Matcha Ceremonial Latte (Uji grade)",
+            EN: "Ceremonial Matcha Latte (Uji Grade)",
+          },
+          description: {
+            ES: "Grado ceremonial importado de Uji, Kioto. Batido tradicionalmente con chasen y leche de avena.",
+            EN: "Ceremonial grade imported from Uji, Kyoto. Whisked traditionally with oat milk.",
+          },
+          origin: { ES: "Uji, Kyoto, Japón", EN: "Uji, Kyoto, Japan" },
+          allergens: [],
+          hasMilkOptions: true,
+        },
+      ];
+
+      // --- INITIALIZATION ---
+      window.onload = function () {
+        renderCategories();
+        renderProducts();
+        updateCartUI();
+      };
+
+      // --- LANGUAGE TOGGLE ---
+      function toggleLanguage() {
+        currentLang = currentLang === "ES" ? "EN" : "ES";
+        document.getElementById("lang-btn").innerHTML =
+          currentLang === "ES"
+            ? 'ES / <span class="text-sage-700 font-semibold">EN</span>'
+            : '<span class="text-sage-700 font-semibold">ES</span> / EN';
+
+        document.querySelectorAll("[data-i18n]").forEach((el) => {
+          const key = el.getAttribute("data-i18n");
+          if (translations[currentLang][key]) {
+            el.innerText = translations[currentLang][key];
+          }
+        });
+
+        renderCategories();
+        renderProducts();
+        renderDrawerItems();
+      }
+
+      // --- SEARCH & FILTERS ---
+      function handleSearch() {
+        const input = document.getElementById("search-input");
+        searchQuery = input.value.toLowerCase().trim();
+        document
+          .getElementById("clear-search")
+          .classList.toggle("hidden", searchQuery === "");
+        renderProducts();
+      }
+
+      function clearSearch() {
+        document.getElementById("search-input").value = "";
+        searchQuery = "";
+        document.getElementById("clear-search").classList.add("hidden");
+        renderProducts();
+      }
+
+      function toggleDietFilter(type) {
+        currentDietFilter = type;
+        document.querySelectorAll(".diet-btn").forEach((btn) => {
+          btn.classList.remove("bg-charcoal", "text-alabaster");
+          btn.classList.add("bg-linen", "text-stone-700");
+        });
+        const activeBtn = document.getElementById(`diet-${type}`);
+        if (activeBtn) {
+          activeBtn.classList.remove("bg-linen", "text-stone-700");
+          activeBtn.classList.add("bg-charcoal", "text-alabaster");
+        }
+        renderProducts();
+      }
+
+      // --- MATCHMAKER ASSISTANT ---
+      function runMatchmaker(type) {
+        const pairs = {
+          sweet: {
+            p1: "p1",
+            p2: "p4",
+            text: {
+              ES: "Cardamom Latte + Croffin de Pistacho",
+              EN: "Cardamom Latte + Pistachio Cruffin",
+            },
+          },
+          citrus: {
+            p1: "p2",
+            p2: "p3",
+            text: {
+              ES: "Geisha Pour Over + Croissant 100% Manteca",
+              EN: "Geisha Pour Over + Pure Butter Croissant",
+            },
+          },
+          energy: {
+            p1: "p1",
+            p2: "p5",
+            text: {
+              ES: "Cardamom Latte + Avocado Tartine",
+              EN: "Cardamom Latte + Avocado Tartine",
+            },
+          },
+          savory: {
+            p1: "p6",
+            p2: "p5",
+            text: {
+              ES: "Matcha Ceremonial + Avocado Tartine",
+              EN: "Ceremonial Matcha + Avocado Tartine",
+            },
+          },
+        };
+
+        const selected = pairs[type];
+        document.getElementById("matchmaker-result").classList.remove("hidden");
+        document.getElementById("match-pair-text").innerText =
+          selected.text[currentLang];
+
+        const addBtn = document.getElementById("match-add-btn");
+        addBtn.onclick = function () {
+          quickAddToCart(selected.p1);
+          quickAddToCart(selected.p2);
+          showToast(
+            currentLang === "ES"
+              ? "Combo agregado al pedido"
+              : "Combo added to order",
+          );
+        };
+      }
+
+      // --- CATEGORIES RENDER ---
+      function renderCategories() {
+        const container = document.getElementById("categories-container");
+        container.innerHTML = categories
+          .map(
+            (cat) => `
+        <button onclick="filterCategory('${cat.id}')" 
+          class="px-4 py-1.5 rounded-full whitespace-nowrap transition-all duration-300 font-medium ${currentCategory === cat.id ? "bg-charcoal text-alabaster shadow-sm" : "bg-linen text-stone-700 border border-sandstone/60 hover:border-sage-500"}">
+          ${cat.name[currentLang]}
+        </button>
+      `,
+          )
+          .join("");
+      }
+
+      function filterCategory(id) {
+        currentCategory = id;
+        renderCategories();
+        renderProducts();
+      }
+
+      // --- PRODUCTS RENDER ---
+      function renderProducts() {
+        const container = document.getElementById("products-container");
+
+        let filtered = products.filter((p) => {
+          const matchesCategory =
+            currentCategory === "all" || p.category === currentCategory;
+          const matchesSearch =
+            p.name[currentLang].toLowerCase().includes(searchQuery) ||
+            p.description[currentLang].toLowerCase().includes(searchQuery);
+          const matchesDiet =
+            currentDietFilter === "all" || p.tags.includes(currentDietFilter);
+          return matchesCategory && matchesSearch && matchesDiet;
+        });
+
+        if (filtered.length === 0) {
+          container.innerHTML = `
+          <div class="text-center py-12 text-stone-400 font-light">
+            <i class="fa-solid fa-mug-hot text-2xl mb-2"></i>
+            <p class="text-xs">${currentLang === "ES" ? "No encontramos opciones con ese filtro." : "No items match your selected filters."}</p>
+          </div>
+        `;
+          return;
+        }
+
+        container.innerHTML = filtered
+          .map(
+            (p) => `
+        <div onclick="openProductModal('${p.id}')" class="glass-card rounded-2xl p-3.5 flex gap-4 items-center cursor-pointer hover:border-sage-500/50 transition group">
+          <img src="${p.image}" alt="${p.name[currentLang]}" class="w-20 h-20 rounded-xl object-cover flex-shrink-0 group-hover:scale-105 transition duration-500">
+          <div class="flex-1 min-w-0">
+            <div class="flex justify-between items-baseline mb-1">
+              <h3 class="font-serif text-base text-charcoal font-medium truncate group-hover:text-sage-700 transition">${p.name[currentLang]}</h3>
+              <span class="font-serif text-sm text-sage-700 font-semibold ml-2">$${p.price.toLocaleString()}</span>
+            </div>
+            <p class="text-[11px] text-stone-500 font-light line-clamp-2 leading-relaxed mb-1.5">${p.description[currentLang]}</p>
+            
+            <div class="flex gap-1 flex-wrap">
+              ${p.tags.map((t) => `<span class="badge-tag bg-linen border border-sandstone/60 text-stone-600">${t.toUpperCase()}</span>`).join("")}
+            </div>
+          </div>
+        </div>
+      `,
+          )
+          .join("");
+      }
+
+      // --- PRODUCT MODAL ---
+      function openProductModal(id) {
+        const p = products.find((item) => item.id === id);
+        const modal = document.getElementById("product-modal");
+        const content = document.getElementById("modal-content");
+
+        content.innerHTML = `
+        <img src="${p.image}" class="w-full h-48 rounded-2xl object-cover mb-4 shadow-sm">
+        <div class="flex justify-between items-baseline mb-2">
+          <h2 class="font-serif text-2xl text-charcoal font-normal">${p.name[currentLang]}</h2>
+          <span class="font-serif text-xl text-sage-700 font-light">$${p.price.toLocaleString()}</span>
+        </div>
+        <p class="text-xs text-stone-600 font-light leading-relaxed mb-4">${p.description[currentLang]}</p>
+        
+        <div class="bg-linen/80 p-3 rounded-xl mb-4 border border-sandstone/60">
+          <p class="text-[10px] uppercase tracking-wider text-sage-700 font-semibold mb-0.5">${translations[currentLang].originLabel}</p>
+          <p class="text-xs text-charcoal italic font-serif">${p.origin[currentLang]}</p>
+        </div>
+
+        ${
+          p.hasMilkOptions
+            ? `
+          <div class="mb-4">
+            <label class="block text-[10px] text-stone-500 uppercase tracking-wider mb-1 font-medium">${translations[currentLang].milkOptionLabel}</label>
+            <select id="modal-milk-select" class="w-full bg-linen border border-sandstone/60 rounded-xl px-3 py-2 text-xs text-charcoal focus:outline-none focus:border-sage-500">
+              <option value="Entera">Leche Entera Orgánica</option>
+              <option value="Avena">Leche de Avena Barista (+ $400)</option>
+              <option value="Almendras">Leche de Almendras (+ $400)</option>
+              <option value="Deslactosada">Sin Lactosa</option>
+            </select>
+          </div>
+        `
+            : ""
+        }
+
+        ${
+          p.allergens.length
+            ? `
+          <div class="flex items-center gap-2 mb-6">
+            <span class="text-[10px] text-stone-500 uppercase tracking-wider">${translations[currentLang].allergensLabel}</span>
+            <div class="flex gap-1">
+              ${p.allergens.map((a) => `<span class="text-[10px] bg-sandstone/40 text-stone-700 px-2 py-0.5 rounded-full">${a}</span>`).join("")}
+            </div>
+          </div>
+        `
+            : ""
+        }
+
+        <button onclick="addToCartModal('${p.id}')" class="w-full bg-charcoal hover:bg-black text-alabaster py-3.5 rounded-2xl text-xs uppercase tracking-widest transition flex items-center justify-center gap-2">
+          <i class="fa-solid fa-plus text-sage-300"></i>
+          <span>${translations[currentLang].addSelection}</span>
+        </button>
+      `;
+
+        modal.classList.remove("hidden");
+      }
+
+      function closeModal() {
+        document.getElementById("product-modal").classList.add("hidden");
+      }
+
+      // --- CART LOGIC ---
+      function quickAddToCart(id) {
+        if (!cart[id]) {
+          cart[id] = { qty: 1, milk: "Estándar" };
+        } else {
+          cart[id].qty += 1;
+        }
+        updateCartUI();
+      }
+
+      function addToCartModal(id) {
+        const milkSelect = document.getElementById("modal-milk-select");
+        const milkVal = milkSelect ? milkSelect.value : "Estándar";
+
+        if (!cart[id]) {
+          cart[id] = { qty: 1, milk: milkVal };
+        } else {
+          cart[id].qty += 1;
+          cart[id].milk = milkVal;
+        }
+
+        updateCartUI();
+        closeModal();
+        showToast(
+          currentLang === "ES"
+            ? "Agregado a la selección"
+            : "Added to order selection",
+        );
+      }
+
+      function updateCartUI() {
+        const count = Object.values(cart).reduce(
+          (sum, item) => sum + item.qty,
+          0,
+        );
+        const total = Object.keys(cart).reduce((sum, id) => {
+          const p = products.find((item) => item.id === id);
+          let extra =
+            cart[id].milk.includes("Avena") ||
+            cart[id].milk.includes("Almendras")
+              ? 400
+              : 0;
+          return sum + (p.price + extra) * cart[id].qty;
+        }, 0);
+
+        document.getElementById("cart-count").innerText = count;
+        document.getElementById("cart-total").innerText =
+          `$${total.toLocaleString()}`;
+        renderDrawerItems();
+      }
+
+      function renderDrawerItems() {
+        const container = document.getElementById("drawer-items");
+        const keys = Object.keys(cart);
+
+        if (keys.length === 0) {
+          container.innerHTML = `<p class="text-xs text-stone-400 font-light italic text-center py-8">${currentLang === "ES" ? "No hay productos seleccionados." : "Your order is currently empty."}</p>`;
+        } else {
+          container.innerHTML = keys
+            .map((id) => {
+              const p = products.find((item) => item.id === id);
+              const item = cart[id];
+              let extra =
+                item.milk.includes("Avena") || item.milk.includes("Almendras")
+                  ? 400
+                  : 0;
+              const itemTotal = (p.price + extra) * item.qty;
+
+              return `
+            <div class="flex justify-between items-center py-2 border-b border-sandstone/40">
+              <div>
+                <h4 class="text-xs font-medium text-charcoal">${p.name[currentLang]}</h4>
+                <p class="text-[10px] text-stone-500">${item.milk !== "Estándar" ? `Leche: ${item.milk}` : ""}</p>
+                <span class="text-[10px] text-sage-700 font-serif">$${itemTotal.toLocaleString()}</span>
+              </div>
+              <div class="flex items-center gap-2">
+                <button onclick="changeQty('${id}', -1)" class="w-6 h-6 rounded-full bg-linen text-stone-700 text-xs">-</button>
+                <span class="text-xs font-medium">${item.qty}</span>
+                <button onclick="changeQty('${id}', 1)" class="w-6 h-6 rounded-full bg-linen text-stone-700 text-xs">+</button>
+              </div>
+            </div>
+          `;
+            })
+            .join("");
+        }
+
+        const subtotal = keys.reduce((sum, id) => {
+          const p = products.find((item) => item.id === id);
+          let extra =
+            cart[id].milk.includes("Avena") ||
+            cart[id].milk.includes("Almendras")
+              ? 400
+              : 0;
+          return sum + (p.price + extra) * cart[id].qty;
+        }, 0);
+
+        const service = subtotal * 0.05;
+        const total = subtotal + service;
+
+        document.getElementById("drawer-subtotal").innerText =
+          `$${subtotal.toLocaleString()}`;
+        document.getElementById("drawer-service").innerText =
+          `$${service.toLocaleString()}`;
+        document.getElementById("drawer-total").innerText =
+          `$${total.toLocaleString()}`;
+      }
+
+      function changeQty(id, delta) {
+        cart[id].qty += delta;
+        if (cart[id].qty <= 0) delete cart[id];
+        updateCartUI();
+      }
+
+      function openDrawer() {
+        document.getElementById("order-drawer").classList.remove("hidden");
+      }
+      function closeDrawer() {
+        document.getElementById("order-drawer").classList.add("hidden");
+      }
+
+      // --- ACTIONS & TOASTS ---
+      function callBarista() {
+        showToast(translations[currentLang].baristaCalled);
+      }
+
+      function confirmOrderAtTable() {
+        if (Object.keys(cart).length === 0) return;
+        cart = {};
+        updateCartUI();
+        closeDrawer();
+        showToast(translations[currentLang].orderConfirmed);
+      }
+
+      function sendWhatsAppOrder() {
+        if (Object.keys(cart).length === 0) return;
+        let text = `*Pedido Maison Éthique - Mesa 08*\n\n`;
+        Object.keys(cart).forEach((id) => {
+          const p = products.find((item) => item.id === id);
+          text += `- ${cart[id].qty}x ${p.name.ES} (${cart[id].milk})\n`;
+        });
+        const url = `https://wa.me/5491100000000?text=${encodeURIComponent(text)}`;
+        window.open(url, "_blank");
+      }
+
+      function openWifiModal() {
+        document.getElementById("wifi-modal").classList.remove("hidden");
+      }
+      function closeWifiModal() {
+        document.getElementById("wifi-modal").classList.add("hidden");
+      }
+
+      function copyWifiPassword() {
+        const el = document.createElement("textarea");
+        el.value = "cafeorganico2026";
+        document.body.appendChild(el);
+        el.select();
+        document.execCommand("copy");
+        document.body.removeChild(el);
+        showToast(translations[currentLang].copiedWifi);
+      }
+
+      function showToast(msg) {
+        const toast = document.getElementById("toast");
+        document.getElementById("toast-message").innerText = msg;
+        toast.classList.remove("translate-y-[-100px]", "opacity-0");
+        setTimeout(() => {
+          toast.classList.add("translate-y-[-100px]", "opacity-0");
+        }, 3500);
+      }
+    </script>
+  </body>
+</html>
